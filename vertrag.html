@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عقد المعلم التفاعلي - Examio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Examio Professional Palette (#14b8a6, #1f2937, #f3f4f6, #ffffff) -->
+    <!-- Application Structure Plan: The SPA is designed as an "Interactive Contract Explorer" to make the legal text of the teacher contract more digestible. Instead of a linear document, it uses a card-based grid layout to thematically group key clauses (Duties, IP, Payment, Duration). The primary interaction is a "Key Points Summary" toggle, which uses JavaScript to reveal a concise summary of the most critical terms for the teacher. This structure was chosen to improve readability and comprehension for a non-legal audience, moving from a passive document to an active exploration tool. -->
+    <!-- Visualization & Content Choices:
+    - Teacher's Duties: Goal: Organize -> Method: Styled HTML Card with list and Unicode icon (💼) -> Interaction: None -> Justification: Groups related responsibilities for clarity.
+    - IP & Confidentiality: Goal: Inform -> Method: Styled HTML Card with strong emphasis and Unicode icon (🔒) -> Interaction: None -> Justification: Highlights a critical, non-negotiable term.
+    - Remuneration (5%): Goal: Inform -> Method: Styled HTML block with large text ("5%") and Unicode icon (💰) -> Interaction: None -> Justification: Visually emphasizes the key financial figure without needing a full chart.
+    - Payment Dates: Goal: Organize -> Method: Simple horizontal timeline created with HTML/CSS -> Interaction: None -> Justification: Clearly presents the two payment dates in a chronological flow.
+    - Key Points Summary: Goal: Inform/Synthesize -> Method: JavaScript-toggled modal/div -> Interaction: Click to show/hide -> Justification: Provides a quick, scannable overview of the most important contract terms, enhancing user understanding.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: #e5e7eb;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.6rem;
+            top: 0.1rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: #14b8a6;
+            border: 4px solid #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-900">Examio</h1>
+            <p class="text-xl text-gray-600 mt-2">مستكشف عقد المعلم التفاعلي</p>
+        </header>
+
+        <div class="bg-white p-6 rounded-2xl shadow-md mb-8">
+            <h2 class="text-2xl font-bold mb-4">نظرة عامة على العقد</h2>
+            <p class="text-gray-600 mb-4">
+                ينظم هذا العقد التعاون بين شركة Examio والمعلم في سياق إعداد المواد التعليمية. تم تصميم هذا العرض التفاعلي لتوضيح البنود الرئيسية بشكل مبسط.
+            </p>
+            <button id="summary-toggle" class="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors">
+                عرض ملخص النقاط الرئيسية
+            </button>
+            <div id="summary-content" class="hidden mt-4 p-4 bg-teal-50 border-r-4 border-teal-500 rounded-lg">
+                <h3 class="font-bold text-lg mb-2 text-teal-800">أهم النقاط التي يجب أن تعرفها:</h3>
+                <ul class="list-disc pr-5 space-y-1 text-teal-700">
+                    <li>جميع المحتويات التي تنشئها هي ملكية حصرية لـ Examio.</li>
+                    <li>ستحصل على نسبة 5% من أرباح التطبيق.</li>
+                    <li>يتم دفع مستحقاتك مرتين في السنة: في 1 يونيو و 1 أغسطس.</li>
+                    <li>يجب الحفاظ على سرية المحتوى وعدم مشاركته مع أي جهة أخرى.</li>
+                </ul>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl ml-2">💼</span> واجبات المعلم وجودة المحتوى</h3>
+                <p class="text-gray-600 mb-2">يلتزم المعلم بتطوير محتوى (أسئلة، أجوبة، وشروحات) للمواد التي تحددها Examio.</p>
+                <ul class="list-disc pr-5 space-y-1 text-gray-700">
+                    <li>يجب أن يتوافق المحتوى مع المناهج الدراسية الحالية في سوريا.</li>
+                    <li>يلتزم المعلم بتحديث المحتوى بشكل دوري لضمان فعاليته.</li>
+                    <li>يحق للشركة مراجعة جودة المحتوى وطلب تعديلات.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl ml-2">🔒</span> الملكية الفكرية والسرية</h3>
+                <p class="text-gray-600">
+                    جميع المحتوى الذي يعده المعلم بموجب هذا العقد هو ملكية فكرية حصرية لـ Examio. يلتزم المعلم بعدم الكشف عن هذا المحتوى أو أي جزء منه لأي طرف ثالث، أو نشره لدى أي مقدم خدمة آخر. يجب الحفاظ على سرية المعلومات بشكل صارم.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-md md:col-span-2">
+                <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl ml-2">💰</span> المكافأة والدفع</h3>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="text-center">
+                        <div class="text-6xl font-bold text-teal-500">5%</div>
+                        <div class="text-gray-600">من أرباح التطبيق</div>
+                    </div>
+                    <div class="w-full flex-1">
+                        <h4 class="font-semibold mb-3">مواعيد الدفع السنوية:</h4>
+                        <div class="relative">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <p class="font-semibold">1 يونيو (حزيران)</p>
+                                <p class="text-sm text-gray-500">دفعة نصف سنوية بناءً على أرباح الستة أشهر السابقة.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <p class="font-semibold">1 أغسطس (آب)</p>
+                                <p class="text-sm text-gray-500">دفعة نصف سنوية بناءً على أرباح الستة أشهر السابقة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl ml-2">⏳</span> مدة العقد وإنهاؤه</h3>
+                <p class="text-gray-600">
+                    يدخل هذا العقد حيز التنفيذ عند التوقيع ويبقى سارياً إلى أجل غير مسمى، ما لم يتم إنهاؤه من قبل أحد الطرفين بإشعار خطي مدته 30 يوماً.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col justify-center items-center text-center">
+                <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl ml-2">✍️</span> التواقيع</h3>
+                <p class="text-gray-600">
+                    هذا القسم مخصص للتوقيع الرسمي بعد الاتفاق على جميع البنود.
+                </p>
+                <div class="mt-6 w-full space-y-4">
+                    <p>التاريخ: ________________</p>
+                    <p>توقيع المعلم: ________________</p>
+                    <p>توقيع Examio: ________________</p>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2025 Examio. جميع الحقوق محفوظة.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('summary-toggle').addEventListener('click', function() {
+            const summaryContent = document.getElementById('summary-content');
+            const isHidden = summaryContent.classList.contains('hidden');
+            if (isHidden) {
+                summaryContent.classList.remove('hidden');
+                this.textContent = 'إخفاء ملخص النقاط الرئيسية';
+            } else {
+                summaryContent.classList.add('hidden');
+                this.textContent = 'عرض ملخص النقاط الرئيسية';
+            }
+        });
+    </script>
+
+</body>
+</html>
